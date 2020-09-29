@@ -23,7 +23,7 @@ export default function QuickSort(props) {
     )
 }
 
-let arr = [3,9,1,2,5,2,4,6,5,7,4,3,4,5,6,7,8,9,0,9,7,6,2,4]
+let arr = [3,9,1,2,5,2,4,9,0,9,7,6,2,4]
 
 function quickSort(arr, low, high) {
     if (low < high) {
@@ -33,9 +33,9 @@ function quickSort(arr, low, high) {
         quickSort(arr, pi + 1, high)
     }
 
-    return arr.map((num) => {
+    return arr.map((num, i) => {
         return <div>
-            <GraphBar/>
+            <GraphBar length={num}/>
         </div>
     })
 }
