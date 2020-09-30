@@ -3,13 +3,21 @@ import {Spring} from 'react-spring/renderprops'
 import GraphBar from './graphBar'
 
 export default function QuickSort(props) {
+    let arrObj = arr.map((e) => {
+        return {
+            value: e,
+            color: 'rgb(200, 200, 200)'
+        }
+    })
+
+    const [arrOrder, setArrOrder] = useState(arrObj)
+
     return(
         <div>
             <Spring
                 from={{opacity: 0, marginLeft: -500}}
                 to={{opacity: 1, marginLeft: 100}}
-                config={{duration: 1000}}
-            >
+                config={{duration: 1000}}>
                 {props => (
                     <div style={props}>
                         <h3>Quick Sort</h3>
@@ -17,7 +25,7 @@ export default function QuickSort(props) {
                     )
                 }
             </Spring>
-            {quickSort(arr, 0, arr.length - 1)}
+            {quickSort(arrOrder, 0, arrOrder.length - 1)}
         </div>
         
     )
@@ -33,11 +41,7 @@ function quickSort(arr, low, high) {
         quickSort(arr, pi + 1, high)
     }
 
-    return arr.map((num, i) => {
-        return <div>
-            <GraphBar length={num}/>
-        </div>
-    })
+    return <GraphBar arr={arr}/>
 }
 
 function partition (arr, low, high)
