@@ -1,16 +1,18 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Spring} from 'react-spring/renderprops'
-import GraphBar from './graphBar'
+import GraphBars from './graphBars'
+
+const graphInstructions = []
 
 export default function QuickSort(props) {
-    let arrObj = arr.map((e) => {
+    let arrObjs = props.arr.map((e) => {
         return {
             value: e,
             color: 'rgb(200, 200, 200)'
         }
     })
 
-    const [arrOrder, setArrOrder] = useState(arrObj)
+    let initArr = [...arrObjs]
 
     return(
         <div>
@@ -25,45 +27,46 @@ export default function QuickSort(props) {
                     )
                 }
             </Spring>
-            {quickSort(arrOrder, 0, arrOrder.length - 1)}
+            {quickSort(arrObjs, 0, arrObjs.length - 1)}
+            <GraphBars instructions={graphInstructions} arrObjs={initArr}/>
         </div>
-        
     )
 }
 
-let arr = [3,9,1,2,5,2,4,9,0,9,7,6,2,4]
+function updateGraphInstructions(instruction) {
+    graphInstructions.push(instruction)
+}
 
 function quickSort(arr, low, high) {
+    updateGraphInstructions({action: 'SECTION', index: [low, high]})
     if (low < high) {
         let pi = partition(arr, low, high)
 
         quickSort(arr, low, pi - 1)
         quickSort(arr, pi + 1, high)
     }
-
-    return <GraphBar arr={arr}/>
 }
 
-function partition (arr, low, high)
-{
+function partition (arr, low, high) {
     let pivot = arr[high]
-    //highlight pivot bar
- 
+    updateGraphInstructions({action: 'HLIGHT_PIVOT', index: [high]})
+    
     let i = (low - 1)
 
     for(let j = low; j <= high - 1; j++) {
-        //highlight arr[j] and pivot bar (comparison)
-        if(arr[j] < pivot) {
+        updateGraphInstructions({action: 'HLIGHT', index: [j]})
+        if(arr[j].value < pivot.value) {
             i++
             let temp = arr[i]
             arr[i] = arr[j]
             arr[j] = temp
-            //highlight both bars and swap positions
+            updateGraphInstructions({action: 'SWAP', index: [i, j]})
         }
     }
 
     arr[high] = arr[i + 1]
     arr[i + 1] = pivot
-    //highlight pivot bar and bar at pivot bar's intended position and swap positions
+    updateGraphInstructions({action: 'SWAP', index: [i + 1, high]})
+    updateGraphInstructions({action: 'RESET', index: []})
     return (i + 1)
 }
