@@ -5,11 +5,11 @@ import SortingOptions from './sortingOptions'
 
 const sortingOptions = [
     { value: 'quickSort', label: 'Quick Sort' },
-    { value: 'mergeSort', label: 'Merge Sort' }
+    { value: 'mergeSort', label: 'Merge Sort', isDisabled: true }
 ]
 
 const traversalOptions = [
-    { value: 'aStar', label: 'A*' }
+    { value: 'aStar', label: 'A*', isDisabled: true }
 ]
 
 const groupedOptions = [
