@@ -31,8 +31,6 @@ function QuickSort(props) {
 
     return(
         <div>
-            {/* need to add event listener where on select, depending on what the
-            selection is, will set state to sorting*/}
             <Select defaultValue={sortingOptions[0]} options={groupedOptions}/>
             <SortingOptions/>
             {/* add function where depending on whether state is sorting or traversal,

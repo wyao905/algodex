@@ -1,4 +1,4 @@
-function sortingReducer(state = [], action) {
+export function sortingReducer(state = [], action) {
     // console.log(state)
     let updatedBars
     let updatedBarA
@@ -94,4 +94,11 @@ function sortingReducer(state = [], action) {
     }
 }
 
-export default sortingReducer
+export function initialArrayReducer(state = [], action) {
+    switch(action.type) {
+        case 'SET_INITIAL':
+            return []
+        default:
+            return state
+    }
+}

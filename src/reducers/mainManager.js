@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
-import sortingReducer from './sortingManager'
+import { sortingReducer, initialArrayReducer } from './sortingManager'
 
 const rootReducer = combineReducers({
     sortingGraph: sortingReducer,
+    initialArr: initialArrayReducer,
     visualRun: visualRunReducer
 })
 
