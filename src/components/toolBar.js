@@ -1,7 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import Select from 'react-select'
 import { Spring } from 'react-spring/renderprops'
+import SortingOptions from './sortingOptions'
 
 const sortingOptions = [
     { value: 'quickSort', label: 'Quick Sort' },
@@ -29,34 +29,16 @@ function QuickSort(props) {
         // if traversal, display traversal options
     }
 
-    const runButton = () => {
-        if(props.isRunning) {
-            return 'Stop'
-        } else {
-            return 'Start'
-        }
-    }
-
     return(
         <div>
             {/* need to add event listener where on select, depending on what the
             selection is, will set state to sorting*/}
             <Select defaultValue={sortingOptions[0]} options={groupedOptions}/>
-            <button>{runButton}</button>
+            <SortingOptions/>
             {/* add function where depending on whether state is sorting or traversal,
             will dieplay the correct toolbar */}
         </div>
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        isRunning: state.visualRun
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuickSort)
+export default QuickSort

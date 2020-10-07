@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Spring } from 'react-spring/renderprops'
 import GraphBars from './graphBars'
 import { updateGraph } from '../actions/sortingActions'
+import { stopAlgo } from '../actions/generalActions'
 
 function QuickSort(props) {
     let graphObjs = props.arr.map((e) => {
@@ -65,6 +66,7 @@ function QuickSort(props) {
             for(let i = 0; i < instructions.length; i++) {
                 setTimeout(() => props.updateGraph(instructions[i]), 50 * i)
             }
+            setTimeout(() => props.stopAlgo(), 1000 + (instructions.length * 50))
         }
     }
 
@@ -97,7 +99,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateGraph: (instruction) => dispatch(updateGraph(instruction))
+        updateGraph: (instruction) => dispatch(updateGraph(instruction)),
+        stopAlgo: () => dispatch(stopAlgo())
     }
 }
 
