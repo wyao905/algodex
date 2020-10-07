@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Spring } from 'react-spring/renderprops'
 import GraphBars from './graphBars'
 import { updateGraph } from '../actions/sortingActions'
-import { stopAlgo } from '../actions/generalActions'
+import { stopAlgo, setComplete } from '../actions/generalActions'
 
 function QuickSort(props) {
+    console.log(props.arr)
     let graphObjs = props.arr.map((e) => {
         return {
             value: e,
@@ -67,40 +67,31 @@ function QuickSort(props) {
                 setTimeout(() => props.updateGraph(instructions[i]), 50 * i)
             }
             setTimeout(() => props.stopAlgo(), 1000 + (instructions.length * 50))
+            props.setComplete()
         }
     }
 
     return(
         <div>
-            <Spring
-                from={{opacity: 0, marginLeft: -500}}
-                to={{opacity: 1, marginLeft: 100}}
-                config={{duration: 1000}}>
-                {props => (
-                    <div style={props}>
-                        <h3>Quick Sort</h3>
-                    </div>
-                    )
-                }
-            </Spring>
             {quickSort(graphObjs, 0, graphObjs.length - 1)}
             {dispatchInstructions()}
             <GraphBars/>
-            
         </div>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        isRunning: state.visualRun
+        isRunning: state.visualRun,
+        arr: state.initialArr
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         updateGraph: (instruction) => dispatch(updateGraph(instruction)),
-        stopAlgo: () => dispatch(stopAlgo())
+        stopAlgo: () => dispatch(stopAlgo()),
+        setComplete: () => dispatch(setComplete())
     }
 }
 

@@ -24,17 +24,10 @@ const groupedOptions = [
 ]
 
 function QuickSort(props) {
-    const displayToolbarOptions = () => {
-        // if state is sorting, display sorting options component,
-        // if traversal, display traversal options
-    }
-
     return(
         <div>
             <Select defaultValue={sortingOptions[0]} options={groupedOptions}/>
             <SortingOptions/>
-            {/* add function where depending on whether state is sorting or traversal,
-            will dieplay the correct toolbar */}
         </div>
     )
 }

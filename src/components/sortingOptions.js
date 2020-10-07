@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { initialArray } from '../actions/sortingActions'
-import { runAlgo, stopAlgo } from '../actions/generalActions'
+import { runAlgo, stopAlgo, setIncomplete } from '../actions/generalActions'
 
 function SortingOptions(props) {
     const [arrSize, setArrSize] = useState(1)
@@ -14,22 +14,28 @@ function SortingOptions(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if(!props.isRunning) {
-            props.runAlgo()
-        }
-
         for(let i = 0; i < arrSize; i++) {
             initArr.push(Math.floor(Math.random() * 49 + 1))
         }
         props.setInitialArr(initArr)
+        props.setIncomplete()
+    }
+
+    const startGraph = () => {
+        if(!props.isRunning) {
+            props.runAlgo()
+        }
     }
 
     return(
-        <form onSubmit={e => handleSubmit(e)}>
-            <label>Select Number of ELements (Between 1 and 20)</label>
-            <input type='number' min='1' max='20' onChange={e => setInitArr(e)} value={arrSize}/>
-            <input type='submit' value='Start' disabled={props.isRunning}></input>
-        </form>
+        <div>
+            <form onSubmit={e => handleSubmit(e)}>
+                <label>Select Number of ELements (Between 1 and 20)</label>
+                <input type='number' min='1' max='20' onChange={e => setInitArr(e)} value={arrSize} disabled={props.isRunning}/>
+                <input type='submit' value='Generate' disabled={props.isRunning}></input>
+            </form>
+            <button onClick={() => startGraph()} disabled={props.isRunning}>Start</button>
+        </div>
     )
 }
 
@@ -44,7 +50,8 @@ const mapDispatchToProps = dispatch => {
     return {
         setInitialArr: (arr) => dispatch(initialArray(arr)),
         runAlgo: () => dispatch(runAlgo()),
-        stopAlgo: () => dispatch(stopAlgo())
+        stopAlgo: () => dispatch(stopAlgo()),
+        setIncomplete: () => dispatch(setIncomplete())
     }
 }
 

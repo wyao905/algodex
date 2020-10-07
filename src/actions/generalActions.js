@@ -9,3 +9,15 @@ export const stopAlgo = () => {
         type: 'STOP'
     }
 }
+
+export const setComplete = () => {
+    return {
+        type: 'COMPLETE'
+    }
+}
+
+export const setIncomplete = () => {
+    return {
+        type: 'INCOMPLETE'
+    }
+}
