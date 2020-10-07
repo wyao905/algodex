@@ -29,20 +29,34 @@ function QuickSort(props) {
         // if traversal, display traversal options
     }
 
+    const runButton = () => {
+        if(props.isRunning) {
+            return 'Stop'
+        } else {
+            return 'Start'
+        }
+    }
+
     return(
         <div>
             {/* need to add event listener where on select, depending on what the
             selection is, will set state to sorting*/}
             <Select defaultValue={sortingOptions[0]} options={groupedOptions}/>
+            <button>{runButton}</button>
             {/* add function where depending on whether state is sorting or traversal,
             will dieplay the correct toolbar */}
         </div>
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        isRunning: state.visualRun
+    }
+}
 const mapDispatchToProps = dispatch => {
     return {
     }
 }
 
-export default connect(null, mapDispatchToProps)(QuickSort)
+export default connect(mapStateToProps, mapDispatchToProps)(QuickSort)

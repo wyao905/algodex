@@ -61,8 +61,10 @@ function QuickSort(props) {
     }
 
     const dispatchInstructions = () => {
-        for(let i = 0; i < instructions.length; i++) {
-            setTimeout(() => props.updateGraph(instructions[i]), 50 * i)
+        if(props.isRunning) {
+            for(let i = 0; i < instructions.length; i++) {
+                setTimeout(() => props.updateGraph(instructions[i]), 50 * i)
+            }
         }
     }
 
@@ -87,10 +89,16 @@ function QuickSort(props) {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        isRunning: state.visualRun
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         updateGraph: (instruction) => dispatch(updateGraph(instruction))
     }
 }
 
-export default connect(null, mapDispatchToProps)(QuickSort)
+export default connect(mapStateToProps, mapDispatchToProps)(QuickSort)
