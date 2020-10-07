@@ -41,7 +41,7 @@ function GraphBars(props) {
 
 const mapStateToProps = state => {
     return {
-        graph: state.quickSortGraph
+        graph: state.sortingGraph
     }
 }
 

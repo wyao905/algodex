@@ -1,6 +1,7 @@
 import React from 'react'
 // import GraphBars from './components/graphBars'
 import QuickSort from './components/quickSort'
+import ToolBar from './components/toolBar'
 import './App.css'
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <h1>AlgoDex</h1>
-      
+      <ToolBar/>
       <QuickSort arr={arr}/>
     </div>
   )

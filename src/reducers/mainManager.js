@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import quickSortReducer from './quickSortManager'
+import sortingReducer from './sortingManager'
 
 const rootReducer = combineReducers({
-    quickSortGraph: quickSortReducer
+    sortingGraph: sortingReducer
 })
 
 export default rootReducer

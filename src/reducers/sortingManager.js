@@ -1,4 +1,4 @@
-function quickSortReducer(state = [], action) {
+function sortingReducer(state = [], action) {
     // console.log(state)
     let updatedBars
     let updatedBarA
@@ -140,4 +140,4 @@ function quickSortReducer(state = [], action) {
     }
 }
 
-export default quickSortReducer
+export default sortingReducer
