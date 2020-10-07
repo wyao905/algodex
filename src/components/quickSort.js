@@ -1,18 +1,70 @@
 import React from 'react'
-import {Spring} from 'react-spring/renderprops'
+import { connect } from 'react-redux'
+import { Spring } from 'react-spring/renderprops'
 import GraphBars from './graphBars'
+import { updateGraph } from '../actions/sortingActions'
 
-const graphInstructions = []
-
-export default function QuickSort(props) {
-    let arrObjs = props.arr.map((e) => {
+function QuickSort(props) {
+    let graphObjs = props.arr.map((e) => {
         return {
             value: e,
             color: 'rgb(200, 200, 200)'
         }
     })
 
-    let initArr = [...arrObjs]
+    const instructions = []
+
+    instructions.push({type: 'INITIALIZE', value: [...graphObjs]})
+
+    let quickSort = (arr, low, high) => {
+        instructions.push({type: 'SECTION', value: [low, high]})
+        instructions.push({type: 'RESET', value: [low, high]})
+        if(low < high) {
+            let pi = partition(arr, low, high)
+    
+            quickSort(arr, low, pi - 1)
+            quickSort(arr, pi + 1, high)
+        }
+    }
+    
+    let partition = (arr, low, high) => {
+        let pivot = arr[high]
+        instructions.push({type: 'HLIGHT_PIVOT', value: [high]})
+        
+        let i = (low - 1)
+    
+        for(let j = low; j <= high - 1; j++) {
+            instructions.push({type: 'HLIGHT', value: [j]})
+            if(arr[j].value < pivot.value) {
+                i++
+                instructions.push({type: 'HLIGHT', value: [i]})
+                let temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+                instructions.push({type: 'SWAP', value: [i, j]})
+            }
+            if(i >= 0) {
+                instructions.push({type: 'RESET_HLIGHT', value: [i, j]})
+            } else {
+                instructions.push({type: 'RESET_HLIGHT', value: [j]})
+            }
+        }
+    
+        arr[high] = arr[i + 1]
+        arr[i + 1] = pivot
+        instructions.push({type: 'HLIGHT', value: [i + 1]})
+        instructions.push({type: 'HLIGHT', value: [high]})
+        instructions.push({type: 'SWAP', value: [i + 1, high]})
+        instructions.push({type: 'RESET_HLIGHT', value: [i + 1, high]})
+        instructions.push({type: 'RESET'})
+        return (i + 1)
+    }
+
+    const dispatchInstructions = () => {
+        for(let i = 0; i < instructions.length; i++) {
+            setTimeout(() => props.updateGraph(instructions[i]), 50 * i)
+        }
+    }
 
     return(
         <div>
@@ -27,46 +79,18 @@ export default function QuickSort(props) {
                     )
                 }
             </Spring>
-            {quickSort(arrObjs, 0, arrObjs.length - 1)}
-            <GraphBars instructions={graphInstructions} arrObjs={initArr}/>
+            {quickSort(graphObjs, 0, graphObjs.length - 1)}
+            {dispatchInstructions()}
+            <GraphBars/>
+            
         </div>
     )
 }
 
-function updateGraphInstructions(instruction) {
-    graphInstructions.push(instruction)
-}
-
-function quickSort(arr, low, high) {
-    updateGraphInstructions({action: 'SECTION', index: [low, high]})
-    if (low < high) {
-        let pi = partition(arr, low, high)
-
-        quickSort(arr, low, pi - 1)
-        quickSort(arr, pi + 1, high)
+const mapDispatchToProps = dispatch => {
+    return {
+        updateGraph: (instruction) => dispatch(updateGraph(instruction))
     }
 }
 
-function partition (arr, low, high) {
-    let pivot = arr[high]
-    updateGraphInstructions({action: 'HLIGHT_PIVOT', index: [high]})
-    
-    let i = (low - 1)
-
-    for(let j = low; j <= high - 1; j++) {
-        updateGraphInstructions({action: 'HLIGHT', index: [j]})
-        if(arr[j].value < pivot.value) {
-            i++
-            let temp = arr[i]
-            arr[i] = arr[j]
-            arr[j] = temp
-            updateGraphInstructions({action: 'SWAP', index: [i, j]})
-        }
-    }
-
-    arr[high] = arr[i + 1]
-    arr[i + 1] = pivot
-    updateGraphInstructions({action: 'SWAP', index: [i + 1, high]})
-    updateGraphInstructions({action: 'RESET', index: []})
-    return (i + 1)
-}
+export default connect(null, mapDispatchToProps)(QuickSort)

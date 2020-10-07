@@ -1,10 +1,10 @@
 import React from 'react'
-import {Spring} from 'react-spring/renderprops'
-import QuickSort from './quickSort'
+import { connect } from 'react-redux'
+import { Spring } from 'react-spring/renderprops'
 
-export default function GraphBar(props) {
-    let displayGraphBars = (arr) => {
-        return arr.map((element) => {
+function GraphBars(props) {
+    let displayGraphBars = () => {
+        return props.graph.map((element) => {
             return <div>
                 <Spring
                 from={{opacity: 0}}
@@ -31,11 +31,18 @@ export default function GraphBar(props) {
             </div>
         })
     }
-    console.log(props)
 
     return(
         <div>
-            {displayGraphBars(props.arrObjs)}
+            {displayGraphBars()}
         </div>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        graph: state.quickSortGraph
+    }
+}
+
+export default connect(mapStateToProps, null)(GraphBars)
