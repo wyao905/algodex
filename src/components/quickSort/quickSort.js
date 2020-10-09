@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import GraphBars from './graphBars'
-import { updateGraph } from '../actions/sortingActions'
-import { stopAlgo, setComplete } from '../actions/generalActions'
+import GraphBars from '../graphBars'
+import { updateGraph } from '../../actions/sortingActions'
+import { stopAlgo, setComplete } from '../../actions/generalActions'
 
 function QuickSort(props) {
     console.log(props.arr)
