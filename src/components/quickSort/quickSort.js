@@ -38,7 +38,9 @@ function QuickSort(props) {
             instructions.push({type: 'HLIGHT', value: [j]})
             if(arr[j].value < pivot.value) {
                 i++
-                instructions.push({type: 'HLIGHT', value: [i]})
+                if(i !== j) {
+                    instructions.push({type: 'HLIGHT', value: [i]})
+                }
                 let temp = arr[i]
                 arr[i] = arr[j]
                 arr[j] = temp
@@ -64,9 +66,9 @@ function QuickSort(props) {
     const dispatchInstructions = () => {
         if(props.isRunning) {
             for(let i = 0; i < instructions.length; i++) {
-                setTimeout(() => props.updateGraph(instructions[i]), 50 * i)
+                setTimeout(() => props.updateGraph(instructions[i]), 200 * i)
             }
-            setTimeout(() => props.stopAlgo(), 1000 + (instructions.length * 50))
+            setTimeout(() => props.stopAlgo(), 200 + (instructions.length * 200))
             props.setComplete()
         }
     }
