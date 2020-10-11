@@ -5,6 +5,7 @@ import { updateGraph } from '../../actions/sortingActions'
 import { stopAlgo, setComplete } from '../../actions/generalActions'
 
 function QuickSort(props) {
+    console.log(props.arr)
     let graphObjs = props.arr.map((e) => {
         return {
             value: e,
@@ -24,7 +25,7 @@ function QuickSort(props) {
             quickSort(arr, low, pi - 1)
             quickSort(arr, pi + 1, high)
         }
-        instructions.push({type: 'RESET'})
+        instructions.push({type: 'RESET', value: [low, high]})
     }
     
     let partition = (arr, low, high) => {
