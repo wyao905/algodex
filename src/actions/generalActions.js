@@ -21,3 +21,11 @@ export const setIncomplete = () => {
         type: 'INCOMPLETE'
     }
 }
+
+export const setAlgo = (algo) => {
+    return {
+        type: 'SET_ALGO',
+        category: algo.category,
+        algo: algo.name
+    }
+}

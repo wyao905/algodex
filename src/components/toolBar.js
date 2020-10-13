@@ -1,15 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Select from 'react-select'
-import { Spring } from 'react-spring/renderprops'
 import SortingOptions from './sortingOptions'
+import { stopAlgo, setIncomplete, setAlgo } from '../actions/generalActions'
 
 const sortingOptions = [
-    { value: 'quickSort', label: 'Quick Sort' },
-    { value: 'mergeSort', label: 'Merge Sort', isDisabled: true }
+    {value: 'quick-sort', label: 'Quick Sort'},
+    {value: 'merge-sort', label: 'Merge Sort'}
 ]
 
 const traversalOptions = [
-    { value: 'aStar', label: 'A*', isDisabled: true }
+    {value: 'aStar-traverse', label: 'A*', isDisabled: true}
 ]
 
 const groupedOptions = [
@@ -23,13 +24,54 @@ const groupedOptions = [
     }
 ]
 
-function QuickSort(props) {
+function ToolBar(props) {
+    const displayOptions = () => {
+        // switch between setup options here based on drop down select menu
+        if(props.currentAlgo.category === 'sort') {
+            return <SortingOptions/>
+        } else {
+            return null
+        }
+    }
+
+    const handleSelect = (e) => {
+        let selectValue = e.value.split('-')
+
+        props.setAlgo({
+            category: selectValue[1],
+            name: selectValue[0]
+        })
+        
+        let killId = setTimeout(() => {
+            for(let i = killId; i > 0; i--) {
+                clearInterval(i)
+            }
+        }, 1)
+
+        props.stopAlgo()
+        props.setIncomplete()
+    }
+
     return(
         <div>
-            <Select defaultValue={sortingOptions[0]} options={groupedOptions}/>
-            <SortingOptions/>
+            <Select options={groupedOptions} onChange={(e) => handleSelect(e)}/>
+            {displayOptions()}
         </div>
     )
 }
 
-export default QuickSort
+const mapStateToProps = state => {
+    return {
+        currentAlgo: state.currentAlgo
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        stopAlgo: () => dispatch(stopAlgo()),
+        setIncomplete: () => dispatch(setIncomplete()),
+        setAlgo: (selectedAlgo) => dispatch(setAlgo(selectedAlgo))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToolBar)
