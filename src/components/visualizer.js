@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import QuickSort from './quickSort/quickSort'
-import MergeSort from './mergeSort/mergeSort'
+import QuickSort from './sorting/quickSort'
+import MergeSort from './sorting/mergeSort'
 import InitialGraph from './initialGraph'
 
 function Visualizer(props) {
