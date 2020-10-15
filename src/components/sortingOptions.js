@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { initialArray } from '../actions/sortingActions'
-import { runAlgo, stopAlgo, setIncomplete } from '../actions/generalActions'
+import { runAlgo, setIncomplete } from '../actions/generalActions'
 
 function SortingOptions(props) {
     const [arrSize, setArrSize] = useState(1)
@@ -22,9 +22,7 @@ function SortingOptions(props) {
     }
 
     const startGraph = () => {
-        if(!props.isRunning) {
-            props.runAlgo()
-        }
+        props.runAlgo()
     }
 
     return(
@@ -41,8 +39,7 @@ function SortingOptions(props) {
 
 const mapStateToProps = state => {
     return {
-        isRunning: state.visualRun,
-        initArray: state.initialArr
+        isRunning: state.visualRun
     }
 }
 
@@ -50,7 +47,6 @@ const mapDispatchToProps = dispatch => {
     return {
         setInitialArr: (arr) => dispatch(initialArray(arr)),
         runAlgo: () => dispatch(runAlgo()),
-        stopAlgo: () => dispatch(stopAlgo()),
         setIncomplete: () => dispatch(setIncomplete())
     }
 }

@@ -128,6 +128,8 @@ export function sortingReducer(state = [], action) {
                 replacedBar,
                 ...state.slice(action.value[0] + 1)
             ]
+        case 'RESET_ALGO':
+            return []
         default:
             return state
     }

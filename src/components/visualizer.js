@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import QuickSort from './sorting/quickSort'
 import MergeSort from './sorting/mergeSort'
-import InitialGraph from './initialGraph'
+import InitialGraph from './sorting/initialGraph'
 
 function Visualizer(props) {
     const showVisual = () => {

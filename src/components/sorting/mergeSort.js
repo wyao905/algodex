@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import GraphBars from '../graphBars'
+import GraphBars from './graphBars'
 import { updateGraph } from '../../actions/sortingActions'
 import { stopAlgo, setComplete } from '../../actions/generalActions'
 
@@ -16,26 +16,21 @@ function MergeSort(props) {
 
     instructions.push({type: 'INITIALIZE', value: [...graphObjs]})
 
-    let mergeSortWrapper = (graph) => {
-        let mergeSort = (graph, low, high) => {
-            instructions.push({type: 'SECTION_YELLOW', value: [low, high]})
-            instructions.push({type: 'RESET'})
+    let mergeSort = (graph, low, high) => {
+        instructions.push({type: 'SECTION_YELLOW', value: [low, high]})
+        instructions.push({type: 'RESET'})
 
-            if(graph.length <= 1) {
-                return graph
-            } else {
-                // need to work out how partition is gonna work relatively to older partition index
-                let pi = Math.floor(graph.length/2)
-                let graphOne = graph.slice(0, pi)
-                instructions.push({type: 'SECTION_CYAN', value: [low, low + graphOne.length - 1]})
-                let graphTwo = graph.slice(pi)
-                instructions.push({type: 'SECTION_GREEN', value: [high - graphTwo.length + 1, high]})
+        if(graph.length <= 1) {
+            return graph
+        } else {
+            let pi = Math.floor(graph.length/2)
+            let graphOne = graph.slice(0, pi)
+            instructions.push({type: 'SECTION_CYAN', value: [low, low + graphOne.length - 1]})
+            let graphTwo = graph.slice(pi)
+            instructions.push({type: 'SECTION_GREEN', value: [high - graphTwo.length + 1, high]})
     
-                return merge(mergeSort(graphOne, low, low + graphOne.length - 1), mergeSort(graphTwo, high - graphTwo.length + 1, high), low)
-            }
+            return merge(mergeSort(graphOne, low, low + graphOne.length - 1), mergeSort(graphTwo, high - graphTwo.length + 1, high), low)
         }
-
-        mergeSort(graph, 0, graph.length - 1)
     }
     
     let merge = (graphOne, graphTwo, low) => {
@@ -86,11 +81,12 @@ function MergeSort(props) {
             props.setComplete()
         }
     }
+
+    mergeSort(graphObjs, 0, graphObjs.length - 1)
+    dispatchInstructions()
     
     return(
         <div>
-            {mergeSortWrapper(graphObjs)}
-            {dispatchInstructions()}
             <GraphBars/>
         </div>
     )

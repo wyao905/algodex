@@ -29,3 +29,9 @@ export const setAlgo = (algo) => {
         algo: algo.name
     }
 }
+
+export const resetAlgo = () => {
+    return {
+        type: 'RESET_ALGO'
+    }
+}

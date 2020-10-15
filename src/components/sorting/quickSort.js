@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import GraphBars from '../graphBars'
+import GraphBars from './graphBars'
 import { updateGraph } from '../../actions/sortingActions'
 import { stopAlgo, setComplete } from '../../actions/generalActions'
 
@@ -71,11 +71,12 @@ function QuickSort(props) {
             props.setComplete()
         }
     }
+    
+    quickSort(graphObjs, 0, graphObjs.length - 1)
+    dispatchInstructions()
 
     return(
         <div>
-            {quickSort(graphObjs, 0, graphObjs.length - 1)}
-            {dispatchInstructions()}
             <GraphBars/>
         </div>
     )

@@ -17,6 +17,8 @@ function visualRunReducer(state = false, action) {
             return true
         case 'STOP':
             return false
+        case 'RESET_ALGO':
+            return false
         default:
             return state
     }
@@ -27,6 +29,8 @@ function visualRunStateReducer(state = false, action) {
         case 'COMPLETE':
             return true
         case 'INCOMPLETE':
+            return false
+        case 'RESET_ALGO':
             return false
         default:
             return state

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import SortingOptions from './sortingOptions'
-import { stopAlgo, setIncomplete, setAlgo } from '../actions/generalActions'
+import { resetAlgo, setAlgo } from '../actions/generalActions'
 
 const sortingOptions = [
     {value: 'quick-sort', label: 'Quick Sort'},
@@ -48,8 +48,7 @@ function ToolBar(props) {
             }
         }, 1)
 
-        props.stopAlgo()
-        props.setIncomplete()
+        props.resetAlgo()
     }
 
     return(
@@ -68,8 +67,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        stopAlgo: () => dispatch(stopAlgo()),
-        setIncomplete: () => dispatch(setIncomplete()),
+        resetAlgo: () => dispatch(resetAlgo()),
         setAlgo: (selectedAlgo) => dispatch(setAlgo(selectedAlgo))
     }
 }
