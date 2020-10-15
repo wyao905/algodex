@@ -16,65 +16,81 @@ function MergeSort(props) {
 
     instructions.push({type: 'INITIALIZE', value: [...graphObjs]})
 
-    let mergeSort = (graph) => {
-        // instructions.push({type: 'SECTION', value: [low, high]})
-        if(graph.length <= 1) {
-            return graph
-        } else {
-            let pi = Math.floor(graph.length/2)
-            console.log(graph)
-            let graphOne = graph.slice(0, pi)
-            let graphTwo = graph.slice(pi)
+    let mergeSortWrapper = (graph) => {
+        let mergeSort = (graph, low, high) => {
+            instructions.push({type: 'SECTION_YELLOW', value: [low, high]})
+            instructions.push({type: 'RESET'})
 
-            return merge(mergeSort(graphOne), mergeSort(graphTwo))
+            if(graph.length <= 1) {
+                return graph
+            } else {
+                // need to work out how partition is gonna work relatively to older partition index
+                let pi = Math.floor(graph.length/2)
+                let graphOne = graph.slice(0, pi)
+                instructions.push({type: 'SECTION_CYAN', value: [low, low + graphOne.length - 1]})
+                let graphTwo = graph.slice(pi)
+                instructions.push({type: 'SECTION_GREEN', value: [high - graphTwo.length + 1, high]})
+    
+                return merge(mergeSort(graphOne, low, low + graphOne.length - 1), mergeSort(graphTwo, high - graphTwo.length + 1, high), low)
+            }
         }
-        // instructions.push({type: 'RESET', value: [low, high]})
+
+        mergeSort(graph, 0, graph.length - 1)
     }
     
-    let merge = (graphOne, graphTwo) => {
+    let merge = (graphOne, graphTwo, low) => {
         let mergedGraph = []
-        // instructions.push({type: 'HLIGHT_PIVOT', value: [high]})
+        let i = 0
+        let bar
     
         while(graphOne.length > 0 && graphTwo.length > 0) {
-            // instructions.push({type: 'HLIGHT', value: [j]})
             if(graphOne[0].value > graphTwo[0].value) {
-                mergedGraph.push(graphTwo.shift())
-                // instructions.push({type: 'HLIGHT', value: [i]})
-                // instructions.push({type: 'SWAP', value: [i, j]})
+                bar = graphTwo.shift()
+                mergedGraph.push(bar)
+                instructions.push({type: 'REPLACE', value: [low + i, bar.value]})
+                i++
             } else {
-                mergedGraph.push(graphOne.shift())
+                bar = graphOne.shift()
+                mergedGraph.push(bar)
+                instructions.push({type: 'REPLACE', value: [low + i, bar.value]})
+                i++
             }
-                // instructions.push({type: 'RESET_HLIGHT', value: [i, j]})
-                // instructions.push({type: 'RESET_HLIGHT', value: [j]})
         }
     
         if(graphOne.length > 0) {
-            mergedGraph.push(graphOne[0])
-        } else if(graphTwo.length > 0) {
-            mergedGraph.push(graphTwo[0])
+            while(graphOne.length > 0) {
+                bar = graphOne.shift()
+                mergedGraph.push(bar)
+                instructions.push({type: 'REPLACE', value: [low + i, bar.value]})
+                i++
+            }
+        } else {
+            while(graphTwo.length > 0) {
+                bar = graphTwo.shift()
+                mergedGraph.push(bar)
+                instructions.push({type: 'REPLACE', value: [low + i, bar.value]})
+                i++
+            }
         }
-        // instructions.push({type: 'HLIGHT', value: [i + 1]})
-        // instructions.push({type: 'HLIGHT', value: [high]})
-        // instructions.push({type: 'SWAP', value: [i + 1, high]})
-        // instructions.push({type: 'RESET_HLIGHT', value: [i + 1, high]})
-        // instructions.push({type: 'RESET'})
+
+        instructions.push({type: 'RESET'})
         return mergedGraph
     }
 
-    // const dispatchInstructions = () => {
-    //     if(props.isRunning) {
-    //         for(let i = 0; i < instructions.length; i++) {
-    //             setTimeout(() => props.updateGraph(instructions[i]), 100 * i)
-    //         }
-    //         setTimeout(() => props.stopAlgo(), 100 + (instructions.length * 100))
-    //         props.setComplete()
-    //     }
-    // }
-
+    const dispatchInstructions = () => {
+        if(props.isRunning) {
+            for(let i = 0; i < instructions.length; i++) {
+                setTimeout(() => props.updateGraph(instructions[i]), 100 * i)
+            }
+            setTimeout(() => props.stopAlgo(), 100 + (instructions.length * 100))
+            props.setComplete()
+        }
+    }
+    
     return(
         <div>
-            {() => {mergeSort(graphObjs)}}
-            {/* {dispatchInstructions()} */}
+            {mergeSortWrapper(graphObjs)}
+            {dispatchInstructions()}
             <GraphBars/>
         </div>
     )

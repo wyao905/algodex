@@ -17,7 +17,7 @@ function QuickSort(props) {
     instructions.push({type: 'INITIALIZE', value: [...graphObjs]})
 
     let quickSort = (arr, low, high) => {
-        instructions.push({type: 'SECTION', value: [low, high]})
+        instructions.push({type: 'SECTION_YELLOW', value: [low, high]})
         if(low < high) {
             let pi = partition(arr, low, high)
     
