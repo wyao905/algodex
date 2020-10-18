@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
 import SortingOptions from './sortingOptions'
+import PathingOptions from './pathingOptions'
 import { resetAlgo, setAlgo } from '../actions/generalActions'
 
 const sortingOptions = [
@@ -9,8 +10,9 @@ const sortingOptions = [
     {value: 'merge-sort', label: 'Merge Sort'}
 ]
 
-const traversalOptions = [
-    {value: 'aStar-traverse', label: 'A*', isDisabled: true}
+const pathingOptions = [
+    {value: 'dijkstras-path', label: "Dijkstra's", isDisabled: true},
+    {value: 'aStar-path', label: 'A*', isDisabled: true}
 ]
 
 const groupedOptions = [
@@ -19,8 +21,8 @@ const groupedOptions = [
         options: sortingOptions
     },
     {
-        label: 'Traversal Algorithms',
-        options: traversalOptions
+        label: 'Path Finding Algorithms',
+        options: pathingOptions
     }
 ]
 
@@ -30,7 +32,7 @@ function ToolBar(props) {
         if(props.currentAlgo.category === 'sort') {
             return <SortingOptions/>
         } else {
-            return null
+            return <PathingOptions/>
         }
     }
 
