@@ -5,7 +5,7 @@ import { runAlgo, setIncomplete } from '../actions/generalActions'
 
 function SortingOptions(props) {
     const [arrSize, setArrSize] = useState(1)
-    let initArr = []
+    let initArr
 
     const setInitArr = (e) => {
         setArrSize(e.target.value)
@@ -14,8 +14,9 @@ function SortingOptions(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        initArr = []
         for(let i = 0; i < arrSize; i++) {
-            initArr.push(Math.floor(Math.random() * 49 + 1))
+            initArr.push(Math.floor(Math.random() * 100 + 1))
         }
         props.setInitialArr(initArr)
         props.setIncomplete()
@@ -28,8 +29,8 @@ function SortingOptions(props) {
     return(
         <div>
             <form onSubmit={e => handleSubmit(e)}>
-                <label>Select Number of ELements (Between 1 and 20)</label>
-                <input type='number' min='1' max='20' onChange={e => setInitArr(e)} value={arrSize} disabled={props.isRunning}/>
+                <label>Select Number of ELements (Between 1 and 100)</label>
+                <input type='number' min='1' max='100' onChange={e => setInitArr(e)} value={arrSize} disabled={props.isRunning}/>
                 <input type='submit' value='Generate' disabled={props.isRunning}></input>
             </form>
             <button onClick={() => startGraph()} disabled={props.isRunning}>Start</button>

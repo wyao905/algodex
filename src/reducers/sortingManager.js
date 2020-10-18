@@ -138,7 +138,7 @@ export function sortingReducer(state = [], action) {
 export function initialArrayReducer(state = [], action) {
     switch(action.type) {
         case 'SET_INITIAL':
-            return action.arr
+            return [...action.arr]
         default:
             return state
     }
