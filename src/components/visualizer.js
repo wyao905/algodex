@@ -4,6 +4,7 @@ import QuickSort from './sorting/quickSort'
 import MergeSort from './sorting/mergeSort'
 import Dijkstras from './pathing/dijkstras'
 import InitialGraph from './sorting/initialGraph'
+import InitialGrid from './pathing/initialGrid'
 
 function Visualizer(props) {
     const showVisual = () => {
@@ -21,7 +22,13 @@ function Visualizer(props) {
                 }
             }
         } else {
-            return <InitialGraph/>
+            if(props.currentAlgo.category === 'sort') {
+                return <InitialGraph/>
+            } else if(props.currentAlgo.category === 'path') {
+                return <InitialGrid/>
+            } else {
+                return null
+            }
         }
     }
 

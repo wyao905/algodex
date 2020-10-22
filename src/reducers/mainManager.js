@@ -1,9 +1,14 @@
 import { combineReducers } from 'redux'
 import { sortingReducer, initialArrayReducer } from './sortingManager'
+import { directionReducer, initialGridReducer, pointAReducer, pointBReducer } from './pathingManager'
 
 const rootReducer = combineReducers({
     sortingGraph: sortingReducer,
     initialArr: initialArrayReducer,
+    direction: directionReducer,
+    initialGrid: initialGridReducer,
+    pointA: pointAReducer,
+    pointB: pointBReducer,
     visualRun: visualRunReducer,
     visualRunState: visualRunStateReducer,
     currentAlgo: currentAlgoReducer

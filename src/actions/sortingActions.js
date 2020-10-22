@@ -4,7 +4,7 @@ export const updateGraph = (instruction) => {
 
 export const initialArray = (arr) => {
     return {
-        type: 'SET_INITIAL',
+        type: 'SET_INITIAL_ARRAY',
         arr: arr
     }
 }

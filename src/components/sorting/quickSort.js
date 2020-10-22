@@ -16,7 +16,7 @@ function QuickSort(props) {
 
     instructions.push({type: 'INITIALIZE', value: [...graphObjs]})
 
-    let quickSort = (arr, low, high) => {
+    const quickSort = (arr, low, high) => {
         instructions.push({type: 'SECTION_YELLOW', value: [low, high]})
         if(low < high) {
             let pi = partition(arr, low, high)
@@ -27,7 +27,7 @@ function QuickSort(props) {
         instructions.push({type: 'RESET'})
     }
     
-    let partition = (arr, low, high) => {
+    const partition = (arr, low, high) => {
         let pivot = arr[high]
         instructions.push({type: 'HLIGHT_PIVOT', value: [high]})
         

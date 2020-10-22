@@ -11,7 +11,7 @@ const sortingOptions = [
 ]
 
 const pathingOptions = [
-    {value: 'dijkstras-path', label: "Dijkstra's", isDisabled: true},
+    {value: 'dijkstras-path', label: "Dijkstra's"},
     {value: 'aStar-path', label: 'A*', isDisabled: true}
 ]
 
@@ -31,8 +31,10 @@ function ToolBar(props) {
         // switch between setup options here based on drop down select menu
         if(props.currentAlgo.category === 'sort') {
             return <SortingOptions/>
-        } else {
+        } else if(props.currentAlgo.category === 'path') {
             return <PathingOptions/>
+        } else {
+            return null
         }
     }
 

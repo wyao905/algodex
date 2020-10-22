@@ -9,14 +9,14 @@ function InitialGraph(props) {
         }
     })
 
-    let displayGraphBars = () => {
+    const displayGraphBars = () => {
         return graphObjs.map((element) => {
             return <div>
                 <div>
                     <div style={{margin: 1 + 'px',
-                                width: (element.value * 5 + 10) + 'px',
-                                height: (Math.floor(600 / graphObjs.length - 2)) + 'px',
-                                backgroundColor: element.color}}>
+                                 width: (element.value * 5 + 10) + 'px',
+                                 height: (Math.floor(600 / graphObjs.length - 2)) + 'px',
+                                 backgroundColor: element.color}}>
                     </div>
                 </div>
             </div>

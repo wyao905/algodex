@@ -1,5 +1,4 @@
 export function sortingReducer(state = [], action) {
-    // console.log(state)
     let updatedBars
     let updatedBarA
     let updatedBarB
@@ -137,8 +136,10 @@ export function sortingReducer(state = [], action) {
 
 export function initialArrayReducer(state = [], action) {
     switch(action.type) {
-        case 'SET_INITIAL':
+        case 'SET_INITIAL_ARRAY':
             return [...action.arr]
+        case 'RESET_ALGO':
+            return []
         default:
             return state
     }

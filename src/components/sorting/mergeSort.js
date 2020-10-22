@@ -16,7 +16,7 @@ function MergeSort(props) {
 
     instructions.push({type: 'INITIALIZE', value: [...graphObjs]})
 
-    let mergeSort = (graph, low, high) => {
+    const mergeSort = (graph, low, high) => {
         instructions.push({type: 'SECTION_YELLOW', value: [low, high]})
         instructions.push({type: 'RESET'})
 
@@ -33,7 +33,7 @@ function MergeSort(props) {
         }
     }
     
-    let merge = (graphOne, graphTwo, low) => {
+    const merge = (graphOne, graphTwo, low) => {
         let mergedGraph = []
         let i = 0
         let bar
