@@ -11,8 +11,7 @@ const sortingOptions = [
 ]
 
 const pathingOptions = [
-    {value: 'dijkstras-path', label: "Dijkstra's"},
-    {value: 'aStar-path', label: 'A*', isDisabled: true}
+    {value: 'dijkstras-path', label: "Dijkstra's"}
 ]
 
 const groupedOptions = [

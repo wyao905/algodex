@@ -31,8 +31,7 @@ function InitialGraph(props) {
     }
 
     const handleMouseDown = (e) => {
-        if(props.pointA && props.pointB) {
-            console.log(e.target.id)
+        if(!!props.pointA && !!props.pointB) {
             setClicked(true)
         }
     }
@@ -46,7 +45,7 @@ function InitialGraph(props) {
         if(props.direction === 'Uni') {
             if(!props.pointA) {
                 props.setPointA(coord, props.direction)
-            } else if(props.pointA && !props.pointB) {
+            } else if(!!props.pointA && !props.pointB) {
                 props.setPointB(coord, props.direction)
             } else {
                 if(e.target.style.backgroundColor === 'white') {
@@ -58,7 +57,7 @@ function InitialGraph(props) {
         } else {
             if(!props.pointA) {
                 props.setPointA(coord, props.direction)
-            } else if(props.pointA && !props.pointB) {
+            } else if(!!props.pointA && !props.pointB) {
                 props.setPointB(coord, props.direction)
             } else {
                 if(e.target.style.backgroundColor === 'white') {
@@ -92,7 +91,6 @@ function InitialGraph(props) {
 
     const displayGrid = () => {
         return props.grid.map((row, rowId) => {
-            // console.log(rowId)
             return <div style={{display: 'flex'}}>
                 {displayRow(row, rowId)}
             </div>
@@ -104,6 +102,7 @@ function InitialGraph(props) {
             return <div style={{position: 'absolute',
                                 width: 1000 + 'px',
                                 left: 50 + '%',
+                                top: 25 + '%',
                                 marginLeft: -500 + 'px',
                                 border: 'solid',
                                 borderWidth: 3 + 'px'}}>

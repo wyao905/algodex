@@ -1,7 +1,17 @@
+export const updateGrid = (instruction) => {
+    return instruction
+}
+
 export const initialGrid = (grid) => {
     return {
         type: 'SET_INITIAL_GRID',
         grid: grid
+    }
+}
+
+export const resetGrid = () => {
+    return {
+        type: 'RESET_GRID'
     }
 }
 
