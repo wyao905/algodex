@@ -9,10 +9,10 @@ function PathingOptions(props) {
     const createInitGrid = () => {
         let grid = Array(30)
 
-        for(let i = 0; i < grid.length; i++) {
+        for (let i = 0; i < grid.length; i++) {
             grid[i] = Array(50)
-            for(let j = 0; j < grid[i].length; j++) {
-                grid[i][j] = {coords: `${i},${j}`, visited: false, open: true, color: 'white'}
+            for (let j = 0; j < grid[i].length; j++) {
+                grid[i][j] = { coords: `${i},${j}`, visited: false, open: true, color: 'white' }
             }
         }
 
@@ -41,22 +41,22 @@ function PathingOptions(props) {
     }
 
     const displayInstruction = () => {
-        if(!!props.direction) {
-            if(props.direction === 'Uni') {
-                if(!!props.pointA && !!props.pointB) {
-                    return <p>Draw Any Obstructions (Optional)</p>
-                } else if(!!props.pointA && !props.pointB) {
-                    return <p>Select End Point</p>
+        if (!!props.direction) {
+            if (props.direction === 'Uni') {
+                if (!!props.pointA && !!props.pointB) {
+                    return <p className='instruction-text'>Draw Any Obstructions (Optional)</p>
+                } else if (!!props.pointA && !props.pointB) {
+                    return <p className='instruction-text'>Select End Point</p>
                 } else {
-                    return <p>Select Start Point</p>
+                    return <p className='instruction-text'>Select Start Point</p>
                 }
             } else {
-                if(!!props.pointA && !!props.pointB) {
-                    return <p>Draw Any Obstructions (Optional)</p>
-                } else if(!!props.pointA && !props.pointB) {
-                    return <p>Select Point B</p>
+                if (!!props.pointA && !!props.pointB) {
+                    return <p className='instruction-text'>Draw Any Obstructions (Optional)</p>
+                } else if (!!props.pointA && !props.pointB) {
+                    return <p className='instruction-text'>Select Point B</p>
                 } else {
-                    return <p>Select Point A</p>
+                    return <p className='instruction-text'>Select Point A</p>
                 }
             }
         } else {
@@ -65,25 +65,30 @@ function PathingOptions(props) {
     }
 
     const displayStartReset = () => {
-        if(((!!props.pointA && !!props.pointB) && !props.isComplete) || props.isRunning) {
-            return <button onClick={() => startGrid()} disabled={props.isRunning}>Start</button>
-        } else if(props.isComplete) {
-            return <button onClick={() => resetGrid()}>Reset</button>
+        if (((!!props.pointA && !!props.pointB) && !props.isComplete) || props.isRunning) {
+            return <button className='button' onClick={() => startGrid()} disabled={props.isRunning}>Start</button>
+        } else if (props.isComplete) {
+            return <button className='button' onClick={() => resetGrid()}>Reset</button>
         } else {
             return null
         }
     }
 
-    return(
+    return (
         <div>
-            <button onClick={e => selectUni(e)} disabled={props.direction === 'Uni'}>
+            <button className='button' style={{ marginTop: '12px' }} onClick={e => selectUni(e)} disabled={props.direction === 'Uni'}>
                 Unidirectional
             </button>
-            {/* <button onClick={e => selectBi(e)} disabled={props.direction === 'Bi'}>
+            {/* <button className='button' onClick={e => selectBi(e)} disabled={props.direction === 'Bi'}>
                 Bidirectional
             </button> */}
-            {displayInstruction()}
-            {displayStartReset()}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}>
+                {displayInstruction()}
+                {displayStartReset()}
+            </div>
         </div>
     )
 }

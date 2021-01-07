@@ -7,36 +7,36 @@ import InitialGraph from './sorting/initialGraph'
 import InitialGrid from './pathing/initialGrid'
 
 function Visualizer(props) {
-    const showVisual = () => {
-        if(props.isRunning || props.completed) {
-            // switch between display here depending on current algo selected
-            if(props.currentAlgo.category === 'sort') {
-                if(props.currentAlgo.algo === 'quick') {
-                    return <QuickSort/>
-                } else if(props.currentAlgo.algo === 'merge') {
-                    return <MergeSort/>
-                }
-            } else {
-                if(props.currentAlgo.algo === 'dijkstras') {
-                    return <Dijkstras/>
-                }
+    if (props.isRunning || props.completed) {
+        // switch between display here depending on current algo selected
+        if (props.currentAlgo.category === 'sort') {
+            if (props.currentAlgo.algo === 'quick') {
+                return <div style={divStyle}><QuickSort /></div>
+            } else if (props.currentAlgo.algo === 'merge') {
+                return <div style={divStyle}><MergeSort /></div>
             }
         } else {
-            if(props.currentAlgo.category === 'sort') {
-                return <InitialGraph/>
-            } else if(props.currentAlgo.category === 'path') {
-                return <InitialGrid/>
-            } else {
-                return null
+            if (props.currentAlgo.algo === 'dijkstras') {
+                return <Dijkstras />
             }
         }
+    } else {
+        if (props.currentAlgo.category === 'sort') {
+            return <div style={divStyle}><InitialGraph /></div>
+        } else if (props.currentAlgo.category === 'path') {
+            return <InitialGrid />
+        } else {
+            return null
+        }
     }
+}
 
-    return(
-        <div>
-            {showVisual()}
-        </div>
-    )
+const divStyle = {
+    backgroundColor: '#ffffff',
+    width: 'auto',
+    height: 'auto',
+    padding: '24px',
+    border: 'solid #314455 4px'
 }
 
 const mapStateToProps = state => {

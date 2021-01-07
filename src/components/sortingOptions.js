@@ -15,7 +15,7 @@ function SortingOptions(props) {
         e.preventDefault()
 
         initArr = []
-        for(let i = 0; i < arrSize; i++) {
+        for (let i = 0; i < arrSize; i++) {
             initArr.push(Math.floor(Math.random() * 100 + 1))
         }
         props.setInitialArr(initArr)
@@ -26,14 +26,25 @@ function SortingOptions(props) {
         props.runAlgo()
     }
 
-    return(
-        <div>
-            <form onSubmit={e => handleSubmit(e)}>
-                <label>Select Number of ELements (Between 1 and 100)</label>
-                <input type='number' min='1' max='100' onChange={e => setInitArr(e)} value={arrSize} disabled={props.isRunning}/>
-                <input type='submit' value='Generate' disabled={props.isRunning}></input>
-            </form>
-            <button onClick={() => startGraph()} disabled={props.isRunning}>Start</button>
+    return (
+        <div style={{
+            display: 'flex',
+            margin: '12px auto 0',
+            justifyContent: 'space-between'
+        }}>
+            <div style={{ display: 'flex' }}>
+                <p className='instruction-text'>Select Number of ELements (Between 1 and 100)</p>
+                <input type='number'
+                    min='1'
+                    max='100'
+                    style={{ marginLeft: '6px' }}
+                    onChange={e => setInitArr(e)} value={arrSize}
+                    disabled={props.isRunning} />
+            </div>
+            <div>
+                <button className='button' style={{ marginRight: '6px' }} onClick={e => handleSubmit(e)} disabled={props.isRunning}>Generate</button>
+                <button className='button' onClick={() => startGraph()} disabled={props.isRunning}>Start</button>
+            </div>
         </div>
     )
 }

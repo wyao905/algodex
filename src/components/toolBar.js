@@ -6,12 +6,12 @@ import PathingOptions from './pathingOptions'
 import { resetAlgo, setAlgo } from '../actions/generalActions'
 
 const sortingOptions = [
-    {value: 'quick-sort', label: 'Quick Sort'},
-    {value: 'merge-sort', label: 'Merge Sort'}
+    { value: 'quick-sort', label: 'Quick Sort' },
+    { value: 'merge-sort', label: 'Merge Sort' }
 ]
 
 const pathingOptions = [
-    {value: 'dijkstras-path', label: "Dijkstra's"}
+    { value: 'dijkstras-path', label: "Dijkstra's" }
 ]
 
 const groupedOptions = [
@@ -28,10 +28,10 @@ const groupedOptions = [
 function ToolBar(props) {
     const displayOptions = () => {
         // switch between setup options here based on drop down select menu
-        if(props.currentAlgo.category === 'sort') {
-            return <SortingOptions/>
-        } else if(props.currentAlgo.category === 'path') {
-            return <PathingOptions/>
+        if (props.currentAlgo.category === 'sort') {
+            return <SortingOptions />
+        } else if (props.currentAlgo.category === 'path') {
+            return <PathingOptions />
         } else {
             return null
         }
@@ -44,9 +44,9 @@ function ToolBar(props) {
             category: selectValue[1],
             name: selectValue[0]
         })
-        
+
         let killId = setTimeout(() => {
-            for(let i = killId; i > 0; i--) {
+            for (let i = killId; i > 0; i--) {
                 clearInterval(i)
             }
         }, 1)
@@ -54,9 +54,12 @@ function ToolBar(props) {
         props.resetAlgo()
     }
 
-    return(
-        <div>
-            <Select options={groupedOptions} onChange={(e) => handleSelect(e)}/>
+    return (
+        <div style={{
+            padding: '12px',
+            backgroundColor: '#314455'
+        }}>
+            <Select options={groupedOptions} onChange={(e) => handleSelect(e)} />
             {displayOptions()}
         </div>
     )

@@ -22,8 +22,8 @@ function InitialGraph(props) {
     }
 
     const handleMouseEnter = (e) => {
-        if(clicked) {
-            if(e.target.style.backgroundColor === 'white') {
+        if (clicked) {
+            if (e.target.style.backgroundColor === 'white') {
                 let coord = getGridCoord(e.target.id)
                 props.closeBox(coord)
             }
@@ -31,7 +31,7 @@ function InitialGraph(props) {
     }
 
     const handleMouseDown = (e) => {
-        if(!!props.pointA && !!props.pointB) {
+        if (!!props.pointA && !!props.pointB) {
             setClicked(true)
         }
     }
@@ -42,27 +42,27 @@ function InitialGraph(props) {
 
     const handleClick = (e) => {
         let coord = getGridCoord(e.target.id)
-        if(props.direction === 'Uni') {
-            if(!props.pointA) {
+        if (props.direction === 'Uni') {
+            if (!props.pointA) {
                 props.setPointA(coord, props.direction)
-            } else if(!!props.pointA && !props.pointB) {
+            } else if (!!props.pointA && !props.pointB) {
                 props.setPointB(coord, props.direction)
             } else {
-                if(e.target.style.backgroundColor === 'white') {
+                if (e.target.style.backgroundColor === 'white') {
                     props.closeBox(coord)
-                } else if(e.target.style.backgroundColor === 'black') {
+                } else if (e.target.style.backgroundColor === 'black') {
                     props.openBox(coord)
                 }
             }
         } else {
-            if(!props.pointA) {
+            if (!props.pointA) {
                 props.setPointA(coord, props.direction)
-            } else if(!!props.pointA && !props.pointB) {
+            } else if (!!props.pointA && !props.pointB) {
                 props.setPointB(coord, props.direction)
             } else {
-                if(e.target.style.backgroundColor === 'white') {
+                if (e.target.style.backgroundColor === 'white') {
                     props.closeBox(coord)
-                } else if(e.target.style.backgroundColor === 'black') {
+                } else if (e.target.style.backgroundColor === 'black') {
                     props.openBox(coord)
                 }
             }
@@ -72,40 +72,37 @@ function InitialGraph(props) {
     const displayRow = (row, rowId) => {
         return row.map((element, colId) => {
             return <div id={rowId + ',' + colId}
-                        style={{width: 20 + 'px',
-                                height: 20 + 'px',
-                                border: 'solid',
-                                borderWidth: 1 + 'px',
-                                borderColor: 'rgb(200, 200, 200)',
-                                backgroundColor: element.color}}
-                        onDragStart={e => handleDragStart(e)}
-                        onMouseOver={e => handleHover(e)}
-                        onMouseLeave={e => handleMouseLeave(e)}
-                        onMouseEnter={e => handleMouseEnter(e)}
-                        onMouseDown={e => handleMouseDown(e)}
-                        onMouseUp={e => handleMouseUp(e)}
-                        onClick={e => handleClick(e)}>
+                className='grid'
+                style={{
+                    position: 'relative',
+                    width: '2%',
+                    border: 'solid 1px rgb(200, 200, 200)',
+                    backgroundColor: element.color
+                }}
+                onDragStart={e => handleDragStart(e)}
+                onMouseOver={e => handleHover(e)}
+                onMouseLeave={e => handleMouseLeave(e)}
+                onMouseEnter={e => handleMouseEnter(e)}
+                onMouseDown={e => handleMouseDown(e)}
+                onMouseUp={e => handleMouseUp(e)}
+                onClick={e => handleClick(e)}>
             </div>
         })
     }
 
     const displayGrid = () => {
         return props.grid.map((row, rowId) => {
-            return <div style={{display: 'flex'}}>
+            return <div style={{ display: 'flex' }}>
                 {displayRow(row, rowId)}
             </div>
         })
     }
 
     const displayPathingVisual = () => {
-        if(!!props.direction) {
-            return <div style={{position: 'absolute',
-                                width: 1000 + 'px',
-                                left: 50 + '%',
-                                top: 25 + '%',
-                                marginLeft: -500 + 'px',
-                                border: 'solid',
-                                borderWidth: 3 + 'px'}}>
+        if (!!props.direction) {
+            return <div style={{
+                border: 'solid #314455 4px'
+            }}>
                 {displayGrid()}
             </div>
         } else {
@@ -113,7 +110,7 @@ function InitialGraph(props) {
         }
     }
 
-    return(
+    return (
         displayPathingVisual()
     )
 }

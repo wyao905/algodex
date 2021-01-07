@@ -11,20 +11,23 @@ function InitialGraph(props) {
 
     const displayGraphBars = () => {
         return graphObjs.map((element) => {
-            return <div>
-                <div>
-                    <div style={{margin: 1 + 'px',
-                                 width: (element.value * 5 + 10) + 'px',
-                                 height: (Math.floor(600 / graphObjs.length - 2)) + 'px',
-                                 backgroundColor: element.color}}>
-                    </div>
-                </div>
+            return <div style={{
+                margin: '1px',
+                width: (element.value * 5 + 10) + 'px',
+                height: '4px',
+                backgroundColor: element.color
+            }}>
             </div>
         })
     }
 
-    return(
-        <div style={{height: 600 + 'px'}}>
+    return (
+        <div style={{
+            height: '600px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+        }}>
             {displayGraphBars()}
         </div>
     )
